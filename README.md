@@ -54,7 +54,7 @@ For the scripts bellow (and for above but have been explained ) caution must be 
 *insert_data.py*,*show_data.py* --> Scripts for inserting and showing some dummy data
 <br>
 
-**frontend** <br>
+**Frontend** <br>
 */templates*--> HTML files <br>
 *forms.py* --> Forms for insert,delete etc. actions <br>
 *front.py* --> Fron-end "server" for starting a client side browser frontend <br>
