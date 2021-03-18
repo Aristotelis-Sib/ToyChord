@@ -36,3 +36,15 @@ In "client" machine run:
 ```python3 front.py``` 
 
 Change host:port to desired (default localhost:5000)
+
+## About files
+*dht_node.py* --> Implementation of basic DHT node <br>
+*dht_master.py*--> Boostrap node only endpoints,functions and operations <br>
+*dht_client.py*--> Client node only endpoints,functions and operations <br>
+*cmn_endpoints*--> Common endpoints and operations for both client and boostrap <br>
+*myglobal.py*--> "Hacky" solution for passing global variables between cmn_endpoints.py and dht_client.py or dht_master.py <br>
+*cli_dht.py*--> CLI implementation for actions on our Chord <br>
+*startserver.py*--> Helper function for starting a new node
+
+
+
