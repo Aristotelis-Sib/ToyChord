@@ -18,7 +18,6 @@ def startup():
     node = myglobal.init(addr,m, {})
     replicas=get_replicas()
     myglobal.init_k(replicas)
-    myglobal.init_test()
     linearization=get_consistency()
     myglobal.init_linearization(linearization)
     t1=Thread(target=join_dht,args=(addr,))

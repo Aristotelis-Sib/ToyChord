@@ -1,7 +1,5 @@
-from flask import Flask, redirect, url_for, request, logging, abort, render_template
-import os
+from flask import Flask, request, abort
 import requests
-from dht_node import DHTNode
 import myglobal
 from myglobal import _find_successor
 import time
@@ -21,7 +19,6 @@ def startup():
     linearization=app.config['consistency']
     myglobal.init_k(replicas)
     myglobal.init_linearization(linearization)
-    myglobal.init_test()
     client_count=1
     print("This server's id is {0}".format(node.id))
     if linearization:
