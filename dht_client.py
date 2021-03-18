@@ -62,9 +62,17 @@ def depart():
     keys = [s for s in node.dict_db.keys()]
     list_of_keys_replicas = []
     list_of_keys_special = []
+    url = "http://{0}/dht/depart_count".format(master_addr)
+    res = requests.get(url)
+    url = "http://{0}/dht/get_count".format(master_addr)
+    res = requests.get(url)
+    count=int(res.text)
+
     for key in keys:
-        ok = node.transfer(int(key), succ)
         data = node.dict_db.get(str(key))
+        if (count<replicas) and data[1]==replicas:
+            continue
+        ok = node.transfer(int(key), succ)
         if data[1] != replicas:
             list_of_keys_replicas.append(str(key))
         if data[1] == replicas-1:
@@ -92,7 +100,7 @@ def depart():
 def shutdown():
     """
     Shutdown.
-    """  
+    """
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
@@ -102,7 +110,7 @@ def shutdown():
 @app.route('/db/flush', methods=['POST'])
 def flush():
     """
-    Flush all data from dictionaries and get replica number k and 
+    Flush all data from dictionaries and get replica number k and
     type of consistency from master
     """
     myglobal.node.dict_db={}
@@ -123,5 +131,3 @@ def flush():
     print("New dict_db is ", myglobal.node.dict_db)
     print("New dict_qid is ", myglobal.node.dict_qid)
     return "Flushed", 200
-
-

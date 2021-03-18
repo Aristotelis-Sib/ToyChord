@@ -1,5 +1,7 @@
-from flask import Flask, request, abort
+from flask import Flask, redirect, url_for, request, logging, abort, render_template
+import os
 import requests
+from dht_node import DHTNode
 import myglobal
 from myglobal import _find_successor
 import time
@@ -8,10 +10,11 @@ node=None
 m= 160
 replicas=None
 linearization=None
+client_count=None
 
 @app.before_first_request
 def startup():
-    global node,replicas,linearization
+    global node,replicas,linearization,client_count
     addr = app.config['SERVER_NAME']    # "ip:port"
     node = myglobal.init(addr,m, {})
     replicas=app.config['k']
@@ -19,6 +22,7 @@ def startup():
     myglobal.init_k(replicas)
     myglobal.init_linearization(linearization)
     myglobal.init_test()
+    client_count=1
     print("This server's id is {0}".format(node.id))
     if linearization:
         print("Linearization with k= ",myglobal.k)
@@ -31,6 +35,7 @@ def join():
     Receive join request from a new node.
     Find position of the node in the Chord and updates predecessors and successors.
     """
+    global client_count
     addr = str(request.args.get('addr'))
     try:
         succ_of_addr=_find_successor(node.get_hash(addr))
@@ -54,6 +59,9 @@ def join():
         # Update predecessor of next node to new node.
         url = "http://{0}/dht/set_predecessor?addr={1}".format(succ_of_addr,addr)
         res = requests.post(url)
+
+        client_count=client_count+1
+
         return "ok", 200
     except ConnectionError:
         return abort(404)
@@ -94,11 +102,11 @@ def flush():
     """
     k = request.args.get('k')
     global replicas,linearization
-    if k!=None:
+    if k is not None:
         replicas=int(k)
     const = request.args.get('const')
 
-    if const!=None:
+    if const is not None:
         if const=="true":
             linearization=True
         else:
@@ -120,3 +128,13 @@ def flush():
 
     return "Flushed", 200
 
+
+@app.route('/dht/depart_count', methods=['GET'])
+def depart_count():
+    global client_count
+    client_count=client_count-1
+    return "ok",200
+
+@app.route('/dht/get_count', methods=['GET'])
+def get_count():
+    return str(client_count),200
