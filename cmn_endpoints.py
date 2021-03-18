@@ -206,13 +206,13 @@ def qresponse():
         if from_node == myglobal.node.get_predecessor():
             data = request.json["data"]
             myglobal.node.dict_qid[str(qid)] = (
-            myglobal.node.dict_qid[str(qid)][0], myglobal.node.dict_qid[str(qid)][1] + data)
+                myglobal.node.dict_qid[str(qid)][0], myglobal.node.dict_qid[str(qid)][1] + data)
             myglobal.node.dict_qid[str(qid)][0].set()
             return "ok", 200
         else:
             data = request.json["data"]
             myglobal.node.dict_qid[str(qid)] = (
-            myglobal.node.dict_qid[str(qid)][0], myglobal.node.dict_qid[str(qid)][1] + data)
+                myglobal.node.dict_qid[str(qid)][0], myglobal.node.dict_qid[str(qid)][1] + data)
             return "ok", 200
 
 
@@ -246,6 +246,19 @@ def put_hash(hash):
     Inserts the hash into the DHT. This is for transfering keys
     """
     # print("put hash data read is ", request.json["data"])
+    myglobal.node.dict_db[str(hash)] = (request.json["data"][0], request.json["data"][1])
+    return "ok", 200
+
+
+@bp.route('/db/hashdepart/<hash>', methods=['POST', 'PUT'])
+def put_hash_depart(hash):
+    """
+    Inserts the hash into the DHT when node departs
+    """
+    if myglobal.node.dict_db.get(str(hash)) is not None:
+        if myglobal.node.dict_db.get(str(hash))[1] == 1:
+            return "ok", 200
+
     myglobal.node.dict_db[str(hash)] = (request.json["data"][0], request.json["data"][1])
     return "ok", 200
 
@@ -431,9 +444,10 @@ def go_to_succ():
 
 @bp.route('/db/update_replicas_depart', methods=['POST'])
 def update_replicas_depart():
-    """
-    Update replicas when a node departs.
-    """
     r = request.json['data']
+    for el in r:
+        if myglobal.node.dict_db.get(el) is not None:
+            if myglobal.node.dict_db[el][1] == 1:
+                return "updated", 200
     myglobal.node.update_replicas_dep(r, myglobal.k)
-    # return "updated", 200
+    return "updated", 200
