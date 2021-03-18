@@ -10,7 +10,7 @@ import signal
 
 @click.command()
 @click.option('-h', '--host', default='192.168.1.1', help='Hostname to bind to')
-@click.option('-p', '--port', type=str, required=True, help='Port to bind to')
+@click.option('-p', '--port', type=str, required=True,default='5000', help='Port to bind to')
 @click.option('-m', '--master', default=False, type=bool, help="Start Master Server (default False)")
 @click.option('-k', '--kreplicas', default=1, type=int, help="Number of replicas (default=3)")
 @click.option('-c', '--consistency', default=True, type=bool, help="Consistency: True:Linearization,False:Eventual Consistency (default=True)")

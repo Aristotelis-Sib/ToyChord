@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+	<center>
+        <br/>
+        <fieldset>
+            <legend style="font-family: times; font-size:22px;"> About ToyChord</legend>
+            <div style="text-align: left; font-family: times; font-size:22px;">
+                {{ about }}
+            </div>
+        </fieldset>
+        <br/>
+        <br/>
+
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}
+			<fieldset >
+				<legend> Reset</legend>
+					<div>
+						{{form.k.label}}
+                        {{form.k}}
+					</div>
+                    <br/>
+                    <div>
+                        {{ form.Linearization.label }} 
+                        {{ form.Linearization(size=1) }}
+					</div>
+			</fieldset>
+ 				<div>
+ 					<button class="button">Reset</button>
+ 				</div>
+		</form>	
+	</center>
+{%endblock%}

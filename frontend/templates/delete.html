@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+	<center>
+		<fieldset style="border-radius: 5px; width: 210px;">
+			<legend> Nodes</legend>
+			{% for node in nodes %}
+			<div style="text-align: left;">
+				{{ node }}
+			</div>
+			{%endfor%}
+		</fieldset>
+		<br/>
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}
+			<fieldset >
+				<legend> Delete key</legend>
+					<div>
+						{{form.key.label}}
+						{% if form.key.errors %}
+							{{form.key}}
+							<div>
+								{% for error in form.key.errors %}
+								<fieldset><li style="color: red;">{{"Please enter a key."}}</li><</fieldset>	
+								{% endfor%}
+							</div>
+							{%else %}
+							{{form.key}}
+						{% endif %}
+					</div>
+                    <br/>
+                    <div>
+                        {{ form.nodes.label }} 
+                        {{ form.nodes(size=1) }}
+						<div>
+							{% for error in form.nodes.errors %}
+							<li style="color: red;">{{ error }}</li>
+							{% endfor%}
+						</div>
+					</div>
+			</fieldset>
+ 				<div>
+ 					<button class="button">Delete</button>
+ 				</div>
+		</form>	
+	</center>
+{%endblock%}

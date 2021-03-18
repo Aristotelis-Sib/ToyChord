@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<center>
+    <br/>
+	<fieldset style="border-radius: 5px; width: 210px;">
+		<legend> Overlay</legend>
+		{% for node in nodes %}
+		<div style="text-align: left;">
+			{{ node }}
+		</div>
+		{%endfor%}
+	</fieldset>
+	<br/>
+</center>
+{% endblock content %}

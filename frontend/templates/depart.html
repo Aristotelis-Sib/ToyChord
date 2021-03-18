@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<center>
+	<fieldset style="border-radius: 5px; width: 210px;">
+		<legend> Nodes</legend>
+		{% for node in nodes %}
+		<div style="text-align: left;">
+			{{ node }}
+		</div>
+		{%endfor%}
+	</fieldset>
+	<br/>
+
+	<form method="POST" action="">
+		{{ form.hidden_tag() }}
+		<fieldset style='float: center;' >
+			<legend> Depart</legend>
+				<div>
+					{{ form.nodes.label }} 
+					{{ form.nodes(size=1) }}
+					<div>
+						{% for error in form.nodes.errors %}
+						<li style="color: red;">{{ error }}</li>
+						{% endfor%}
+					</div>
+				</div>
+		</fieldset>
+				<div>
+					<button class="button">Depart</button>
+				</div>
+	</form>	
+</center>
+{%endblock%}

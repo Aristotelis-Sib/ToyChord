@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+table {
+  width:40%;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: center;
+}
+table#t01 tr:nth-child(even) {
+  background-color: #eee;
+}
+table#t01 tr:nth-child(odd) {
+ background-color: #fff;
+}
+table#t01 th {
+  background-color: black;
+  color: white;
+}
+</style>
+<center>
+    <h2 >Query all</h2>
+</center>
+<center>
+    <table id="t01">
+    <tr>
+      <th>Ip:port</th>
+      <th>Data:</th>
+    </tr>
+    </center>
+<center>
+    {% for val in data %}
+    <tr>
+      <td>{{val[0]}}</td>
+      <td>{{val[1]}}</td>
+    </tr>
+    {% endfor %}
+</center>
+{%endblock%}
+
