@@ -38,6 +38,7 @@ In "client" machine run:
 Change host:port to desired (default localhost:5000)
 
 ## About files
+**Back-End**  <br>
 *dht_node.py* --> Implementation of basic DHT node <br>
 *dht_master.py*--> Boostrap node only endpoints,functions and operations <br>
 *dht_client.py*--> Client node only endpoints,functions and operations <br>
@@ -52,10 +53,11 @@ For the scripts bellow (and for above but have been explained ) caution must be 
 *compare.py* --> Helper function for comparing true results of experiments with our results <br>
 *insert_data.py*,*show_data.py* --> Scripts for inserting and showing some dummy data
 <br>
-/frontend
-*/templates*--> HTML files
-*forms.py* --> Forms for insert,delete etc. actions
-*front.py* --> Fron-end "server" for starting a client side browser frontend
+
+**frontend** <br>
+*/templates*--> HTML files <br>
+*forms.py* --> Forms for insert,delete etc. actions <br>
+*front.py* --> Fron-end "server" for starting a client side browser frontend <br>
 
 
 
