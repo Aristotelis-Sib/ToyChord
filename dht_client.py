@@ -1,10 +1,7 @@
-from flask import Flask, redirect, url_for, request, logging, abort, render_template
-import os
+from flask import Flask, request, abort
 import requests
-from dht_node import DHTNode
-from threading import Thread, Lock
+from threading import Thread
 import myglobal
-from myglobal import _find_successor
 
 app = Flask(__name__)
 master_addr='192.168.1.1:5000'

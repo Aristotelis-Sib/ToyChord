@@ -1,5 +1,4 @@
 import requests
-import time
 
 print("Insert key-value pairs and the run query with *")
 

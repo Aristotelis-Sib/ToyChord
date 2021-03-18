@@ -2,25 +2,29 @@ from dht_node import DHTNode
 import requests
 
 
-def init(addr,m,dict_db):
+def init(addr, m, dict_db):
     global node
-    node = DHTNode(addr,m, dict_db)
+    node = DHTNode(addr, m, dict_db)
     return node
+
 
 def init_k(num_k):
     global k
-    k=num_k
+    k = num_k
     return int(k)
+
 
 def init_linearization(bool):
     global linear
-    linear=bool
+    linear = bool
     return linear
 
+
 def init_test():
-    global test 
-    test=0
+    global test
+    test = 0
     return test
+
 
 def _find_successor(id):
     succ = node.get_successor()

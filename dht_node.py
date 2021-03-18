@@ -6,18 +6,17 @@ import time
 
 class DHTNode(object):
 
-    def __init__(self, host,m, dict_db):
-        self.host = host                      # ip:port
-        self.m=m
-        self.id = self.get_hash(self.host)    #Hashed ip  , must add port
+    def __init__(self, host, m, dict_db):
+        self.host = host  # ip:port
+        self.m = m
+        self.id = self.get_hash(self.host)  # Hashed ip  , must add port
         self.predecessor = self.host
         self.pred_lock = Lock()
         self.successor = self.host
         self.succ_lock = Lock()
-        self.dict_db = dict_db                     #Just a dictionary
+        self.dict_db = dict_db  # Just a dictionary
         self.qid = 0
         self.dict_qid = {}
-
 
     def get_successor(self):
         """
@@ -41,7 +40,7 @@ class DHTNode(object):
         """
         Hashing.
         """
-        return int(int.from_bytes(sha1(key.encode()).digest(), byteorder='big') % 2**self.m)
+        return int(int.from_bytes(sha1(key.encode()).digest(), byteorder='big') % 2 ** self.m)
 
     def update_predecessor(self, pred):
         """
@@ -58,7 +57,6 @@ class DHTNode(object):
         self.succ_lock.acquire()
         self.successor = succ
         self.succ_lock.release()
-
 
     def update_successor(self, succ):
         """
@@ -79,7 +77,7 @@ class DHTNode(object):
         Set value and number of replica in key.
         """
         h = self.get_hash(key)
-        self.dict_db[str(h)]= (value.decode(), replica) if type(value)==bytes else (value, replica)
+        self.dict_db[str(h)] = (value.decode(), replica) if type(value) == bytes else (value, replica)
 
     def get_key(self, key):
         """
@@ -89,7 +87,7 @@ class DHTNode(object):
         val = self.dict_db.get(h)
 
         if val is not None:
-            return val.decode() if type(val)==bytes else val
+            return val.decode() if type(val) == bytes else val
         return ""
 
     def delete_key(self, key):
@@ -106,7 +104,7 @@ class DHTNode(object):
         if addr == self.host:
             return True
         data = self.dict_db.get(str(hash))
-        data_test={"data":data}
+        data_test = {"data": data}
         url = "http://" + addr + '/db/hash/' + str(hash)
         res = requests.post(url, json=data_test)
         if res.status_code != 200:
@@ -114,16 +112,16 @@ class DHTNode(object):
         else:
             return True
 
-    def update_replicas(self, list_of_keys,k):
+    def update_replicas(self, list_of_keys, k):
         """
         Update replicas when join.
         """
-        to_delete=[]
+        to_delete = []
         for el in list_of_keys:
             cur_val = self.dict_db.get(el)
-            if cur_val!=None:
-                if int(cur_val[1])< k:
-                    self.dict_db[el]=(self.dict_db[el][0],self.dict_db[el][1]+1)
+            if cur_val != None:
+                if int(cur_val[1]) < k:
+                    self.dict_db[el] = (self.dict_db[el][0], self.dict_db[el][1] + 1)
                 else:
                     # delete key from last node
                     self.dict_db.pop(el)
@@ -139,7 +137,7 @@ class DHTNode(object):
         else:
             succ = self.get_successor()
             url = "http://" + succ + '/db/update_replicas'
-            res = requests.post(url, json={"data":list_of_keys})
+            res = requests.post(url, json={"data": list_of_keys})
             if res.status_code != 200:
                 return False
 
@@ -147,14 +145,14 @@ class DHTNode(object):
         """
         Update replicas when depart.
         """
-        to_delete=[]
+        to_delete = []
         for el in list_of_keys:
             cur_val = self.dict_db.get(el)
             if cur_val != None:
                 self.dict_db[el] = (self.dict_db[el][0], self.dict_db[el][1] - 1)
                 # send key to last node
                 if cur_val[1] == k:
-                    data_test={"data": (self.dict_db[el][0], k)}
+                    data_test = {"data": (self.dict_db[el][0], k)}
                     succ = self.get_successor()
                     url = "http://" + succ + '/db/hash/' + str(el)
                     res = requests.post(url, json=data_test)
@@ -168,7 +166,7 @@ class DHTNode(object):
             return True
         else:
             succ = self.get_successor()
-            url = "http://"+succ+'/db/update_replicas_depart'
+            url = "http://" + succ + '/db/update_replicas_depart'
             res = requests.post(url, json={"data": list_of_keys})
             if res.status_code != 200:
                 return False
@@ -183,5 +181,4 @@ class DHTNode(object):
         elif a < b:
             return a < x and b >= x
         else:
-            return a !=x
-
+            return a != x
