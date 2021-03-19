@@ -153,7 +153,7 @@ class DHTNode(object):
                 if cur_val[1] == k:
                     data_test = {"data": (self.dict_db[el][0], k)}
                     succ = self.get_successor()
-                    url = "http://" + succ + '/db/hash/' + str(el)
+                    url = "http://" + succ + '/db/hashdepart/' + str(el)
                     res = requests.post(url, json=data_test)
                     to_delete.append(el)
                     if res.status_code != 200:
