@@ -7,7 +7,7 @@ from hashlib import sha1
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 m = 160
-
+master_addr="192.168.1.1:5000"
 global hashed_ips
 hashed_ips = []
 
@@ -17,7 +17,7 @@ def get_hash(key):
 
 
 def set_addresses():  # A function that returns current nodes in Chord
-    url = "http://192.168.1.1:5000/overlay"
+    url = "http://{}/overlay".format(master_addr)
     res = requests.post(url)
     global addresses
     addresses = res.text.split("~")[1].split("|")
@@ -102,10 +102,10 @@ def depart():
 
 @app.route("/about", methods=['GET'])
 def about():
-    url = "http://192.168.1.1:5000/db/get_k"
+    url = "http://{}/db/get_k".format(master_addr)
     res = requests.get(url)
     k = res.text
-    url = "http://192.168.1.1:5000/db/get_consistency"
+    url = "http://{}/db/get_consistency".format(master_addr)
     res = requests.get(url)
     if res.text:
         const = "Linearization"
@@ -118,7 +118,7 @@ def about():
 def reset():
     k = request.args.get('k')
     const = request.args.get('const')
-    url = "http://192.168.1.1:5000/db/flush?k={}&const={}".format(k, const)
+    url = "http://{}/db/flush?k={}&const={}".format(master_addr,k, const)
     res = requests.post(url)
 
     for addr in addresses:

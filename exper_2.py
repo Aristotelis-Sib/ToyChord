@@ -40,7 +40,7 @@ ttl_time = round(time.time() - start_time, 3)
 print("It took ", ttl_time, " sec to complete")
 print("Read Througput is ", ttl_time / 500)
 
-print(results)
+#print(results)
 if (results == compare_query()):
     print("True same")
 else:

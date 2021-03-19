@@ -1,13 +1,9 @@
 import click
 import requests
-import time
 import random
 from hashlib import sha1
 
 m = 160
-
-
-# Update 1.1
 
 @click.group()
 def main():
@@ -23,7 +19,6 @@ def get_hash(key):
 
 
 def set_addresses():  # A function that returns current nodes in Chord
-    #    print("HERE")
     url = "http://192.168.1.1:5000/overlay"
     res = requests.post(url)
     global addresses

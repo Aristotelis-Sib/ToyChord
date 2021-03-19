@@ -19,13 +19,6 @@ def init_linearization(bool):
     linear = bool
     return linear
 
-
-def init_test():
-    global test
-    test = 0
-    return test
-
-
 def _find_successor(id):
     succ = node.get_successor()
     if DHTNode.between_right_inclusive(id, node.id, node.get_hash(succ)):

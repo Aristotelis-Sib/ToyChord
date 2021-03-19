@@ -1,7 +1,6 @@
 from hashlib import sha1
-from threading import Thread, Lock
+from threading import Lock
 import requests
-import time
 
 
 class DHTNode(object):

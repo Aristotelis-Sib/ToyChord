@@ -1,5 +1,6 @@
 import requests
 import random
+import concurrent.futures
 import time
 from compare import compare_requests
 
@@ -47,10 +48,12 @@ for data in keys_values:
 
 ttl_time = round(time.time() - start_time, 3)
 print("It took ", ttl_time, " sec to complete")
-
+print("")
 wrong_cntr = 0
+print("Results vs True vals:")
 for i in zip(results, compare_requests()):
+    print(i[0], ":", i[1])
     if i[0] != i[1]:
         wrong_cntr += 1
-        print("Wrong pair is ", i)
+print("")
 print("Wrong results are {} in {} queries thus: {} %".format(wrong_cntr, query_cntr, (wrong_cntr / query_cntr) * 100))

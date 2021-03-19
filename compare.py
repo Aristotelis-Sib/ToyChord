@@ -1,9 +1,8 @@
-
 def compare_query():
     keys_values = []
     counter = 0
     db = {}
-    with open('insert.txt', 'r') as f:
+    with open('data/insert.txt', 'r') as f:
         for f_line in f:
             line = f_line.rstrip()
             c = line.split(',')
@@ -11,7 +10,7 @@ def compare_query():
             counter += 1
 
     counter = 0
-    with open('query.txt', 'r') as f:
+    with open('data/query.txt', 'r') as f:
         for f_line in f:
             line = f_line.rstrip()
             keys_values.append(db[line])
@@ -26,7 +25,7 @@ def compare_requests():
     db = {}
 
     counter = 0
-    with open('requests.txt', 'r') as f:
+    with open('data/requests.txt', 'r') as f:
         for f_line in f:
             line = f_line.rstrip()
             data = line.split(',')
@@ -38,7 +37,7 @@ def compare_requests():
             db[data[1]] = data[2]
         else:
             tmp = db.get(data[1])
-            if tmp == None:
+            if tmp is None:
                 result.append("Key not found")
             else:
                 result.append(tmp)

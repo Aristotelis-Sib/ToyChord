@@ -436,4 +436,4 @@ def update_replicas_depart():
     """
     r = request.json['data']
     myglobal.node.update_replicas_dep(r, myglobal.k)
-    # return "updated", 200
+    return "updated", 200
