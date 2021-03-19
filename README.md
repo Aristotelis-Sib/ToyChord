@@ -2,6 +2,7 @@
 
 NTUA Distributed Systems Course 2020-2021 
 
+Small portions of code based of [ShaeBrown chord-flask](https://github.com/ShaeBrown/chord-flask.git) repo
 
 ## Run 
 ```pip3 install -r requirements.txt```
