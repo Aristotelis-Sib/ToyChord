@@ -249,20 +249,6 @@ def put_hash(hash):
     myglobal.node.dict_db[str(hash)] = (request.json["data"][0], request.json["data"][1])
     return "ok", 200
 
-
-@bp.route('/db/hashdepart/<hash>', methods=['POST', 'PUT'])
-def put_hash_depart(hash):
-    """
-    Inserts the hash into the DHT when node departs
-    """
-    if myglobal.node.dict_db.get(str(hash)) is not None:
-        if myglobal.node.dict_db.get(str(hash))[1] == 1:
-            return "ok", 200
-
-    myglobal.node.dict_db[str(hash)] = (request.json["data"][0], request.json["data"][1])
-    return "ok", 200
-
-
 @bp.route('/overlay', methods=['POST'])
 def overlay():
     """
