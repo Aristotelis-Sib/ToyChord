@@ -8,7 +8,7 @@ class DHTNode(object):
     def __init__(self, host, m, dict_db):
         self.host = host  # ip:port
         self.m = m
-        self.id = self.get_hash(self.host)  # Hashed ip  , must add port
+        self.id = self.get_hash(self.host)  # Hashed ip:port
         self.predecessor = self.host
         self.pred_lock = Lock()
         self.successor = self.host
