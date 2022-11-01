@@ -49,7 +49,7 @@ Change host:port to desired (default localhost:5000)
 *cli_dht.py*--> CLI implementation for actions on our Chord <br>
 *front_public2local.py*--> Front-end intermediate "server" for accepting requests from client and forwarding to the Chord
 <br>
-For the scripts bellow (and for above but have been explained ) caution must be taken about the boostrap address to run properly
+For the scripts bellow (and for above but have been explained ) caution must be taken about the boostrap address to run properly<br>
 *exper_1.py*,*exper_2.py*,*exper_3.py*--> Implementation of 3 experiments asked in exercise <br>
 *compare.py* --> Helper function for comparing true results of experiments with our results <br>
 *insert_data.py*,*show_data.py* --> Scripts for inserting and showing some dummy data
